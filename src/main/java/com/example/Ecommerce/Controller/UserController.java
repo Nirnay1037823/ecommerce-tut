@@ -56,10 +56,19 @@ public class UserController {
         }
     }
 
+    @PostMapping("/deleteall")
+    public void deleteAll(){
+        try {
+            userServ.deleteAllProducts();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
     @PostMapping("/updateuser")
     public User update(@RequestBody User user){
         User newUser = user;
-        System.out.println("Id of new user is" + newUser.getId());
+        System.out.println("Id of new user is " + newUser.getId());
         if(userServ.existUserById(newUser.getId())){
             User updatedUser = userServ.updateUser(user);
             return updatedUser;

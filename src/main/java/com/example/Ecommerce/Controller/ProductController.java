@@ -30,7 +30,7 @@ public class ProductController {
         if(prodServ.existProdById(id)){
             System.out.println(prodServ.findProdById(id));
         }else{
-            System.out.println("User is not present");
+            System.out.println("Product is not present");
         }
     }
     @GetMapping("/getall")
@@ -57,12 +57,12 @@ public class ProductController {
     @PostMapping("/updateproduct")
     public Product update(@RequestBody Product product){
         Product newProd = product;
-        System.out.println("Id of new user is" + newProd.getId());
+        System.out.println("Id of new product is " + newProd.getId());
         if(prodServ.existProdById(newProd.getId())){
             Product updatedProd = prodServ.updateProduct(product);
             return updatedProd;
         }
-        System.out.println("User does not exists");
+        System.out.println("Product does not exists");
         return null;
     }
 }

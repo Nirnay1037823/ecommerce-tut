@@ -39,6 +39,10 @@ public class UserService {
         userRepo.deleteById(id);
     }
 
+    public void deleteAllProducts(){
+        userRepo.deleteAll();
+    }
+
     public User updateUser(User user){
         User userObj = userRepo.saveAndFlush(user);
         return userObj;
