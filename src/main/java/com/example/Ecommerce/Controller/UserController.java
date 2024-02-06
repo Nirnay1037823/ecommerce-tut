@@ -76,4 +76,18 @@ public class UserController {
         System.out.println("User does not exists");
         return null;
     }
+
+    @PostMapping("/exists/email")
+    public Boolean emailExists(@RequestBody User user){
+        String userEmail = user.getEmail();
+        return userServ.existByEmail(userEmail);
+    }
+
+    @PostMapping("/exists/login")
+    public String loginExists(@RequestBody User user){
+        String userEmail = user.getEmail();
+        String password = user.getPassword();
+
+        return userServ.userLogin(userEmail, password);
+    }
 }

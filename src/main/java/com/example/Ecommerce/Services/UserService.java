@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -48,4 +49,31 @@ public class UserService {
         return userObj;
     }
 
+    public Boolean existByEmail(String email){
+        Optional<User> usersObj = Optional.ofNullable(userRepo.getUserByUsername(email));
+        System.out.println(usersObj);
+        if(!usersObj.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    public String userLogin(String userName, String password){
+        if(existByEmail(userName)){
+            User user = userRepo.getUserByUsername(userName);
+            String userPass = user.getPassword();
+            String userFname = user.getFname();
+            System.out.println("Original pass is " + userPass);
+            System.out.println("Login pass is " + password);
+            if(Objects.equals(password, userPass)){
+                return "{" +
+                        "\"message\":"+"Successfully Logged in\",\n"+
+                        "\"data\":"+userFname+",\n"+
+                        "}";
+            }
+        }
+        return "{" +
+                "\"message\":"+"Authentication Failed\",\n"+
+                "}";
+    };
 }
