@@ -84,7 +84,7 @@ public class UserController {
     }
 
     @PostMapping("/exists/login")
-    public String omloginExists(@RequestBody User user){
+    public String loginExists(@RequestBody User user){
         String userEmail = user.getEmail();
         String password = user.getPassword();
 

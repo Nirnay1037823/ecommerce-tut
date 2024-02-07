@@ -11,8 +11,15 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+//    @Autowired
+    private UserRepository userRepo;
+    private TokenService tokenService;
+
     @Autowired
-    UserRepository userRepo;
+    public UserService(UserRepository userRepo, TokenService tokenService) {
+        this.userRepo = userRepo;
+        this.tokenService = tokenService;
+    }
 
     public User saveUser(User user){
         return userRepo.save(user);
@@ -65,10 +72,12 @@ public class UserService {
             String userFname = user.getFname();
             System.out.println("Original pass is " + userPass);
             System.out.println("Login pass is " + password);
-            if(Objects.equals(password, userPass)){
+            if(userPass.equals(password)){
                 return "{" +
                         "\"message\":"+"Successfully Logged in\",\n"+
-                        "\"data\":"+userFname+",\n"+
+                        "\"data\": "+user+",\n"+
+                        "\"Email: " + user.getEmail() + "\n"+
+                        "\"token: " + tokenService.createToken(user.getId()) +
                         "}";
             }
         }
