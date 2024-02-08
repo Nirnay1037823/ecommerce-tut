@@ -33,6 +33,4 @@ public class RestExceptionHandler {
         errorResponse.setMessage("Request cannot be handled due to incorrect request ");
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-
-
 }
